@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import Axios from "axios";
-
-import { API_BASE_URL } from "config.json";
 import Header from "./Header";
+import SideBarMenu from "./SideBarMenu";
+import Main from "./Main";
 
-const Layout = () => {
-  const [players, setPlayers] = useState([]);
-
-  const getPlayers = async () => {
-    const { data: players } = await Axios(`${API_BASE_URL}/players`);
-    return setPlayers(players);
-  };
-
-  useEffect(() => getPlayers(), []);
-
+const Layout = ({ children }) => {
   return (
-    <div className="container">
+    <div>
       <Header />
-      <h1>Hello World</h1>
-      <>
-        {players.map((player) => (
-          <div>{player.name}</div>
-        ))}
-      </>
+      <div className="container-fluid layout">
+        <div className="row">
+          <SideBarMenu />
+          <Main>{children}</Main>
+        </div>
+      </div>
     </div>
   );
 };

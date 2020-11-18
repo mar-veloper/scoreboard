@@ -6,6 +6,8 @@ import "@atlaskit/css-reset";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 
+import "./index.scss";
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
