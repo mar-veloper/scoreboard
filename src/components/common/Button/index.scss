@@ -1,3 +1,7 @@
 .btn {
   font-size: 1rem;
+  &:focus {
+    box-shadow: transparent;
+    outline: none;
+  }
 }

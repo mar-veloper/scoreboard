@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const SideBarMenu = () => {
   return (
@@ -28,7 +28,7 @@ const SideBarMenu = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link bg-dark text-light" to="/login">
+            <NavLink className="nav-link" to="/login">
               <i className="fas fa-sign-in-alt mr-3"></i>
               Login
             </NavLink>

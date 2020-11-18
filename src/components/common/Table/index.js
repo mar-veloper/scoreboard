@@ -1,12 +1,12 @@
-import React from "react";
-import TableHead from "./Head";
-import TableBody from "./Body";
+import React from 'react';
+import TableHead from './Head';
+import TableBody from './Body';
 
-import "./index.scss";
+import './index.scss';
 
 const Table = ({ columns, data }) => {
   return (
-    <table className="table table-striped">
+    <table className="table table-striped mb-5">
       <TableHead columns={columns} />
       <TableBody columns={columns} data={data} />
     </table>

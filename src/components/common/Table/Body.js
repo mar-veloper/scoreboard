@@ -1,5 +1,5 @@
-import React from "react";
-import _ from "lodash";
+import React from 'react';
+import _ from 'lodash';
 
 const TableBody = ({ columns, data }) => {
   const renderCell = (item, column) => {
@@ -16,7 +16,7 @@ const TableBody = ({ columns, data }) => {
     <tbody>
       {data.map((item, index) => (
         <tr key={index}>
-          {columns.map((column) => (
+          {columns.map(column => (
             <td key={createKey(item, column)}>{renderCell(item, column)}</td>
           ))}
         </tr>

@@ -8,6 +8,7 @@ import { API_BASE_URL } from 'config.json';
 import playerService from 'services/players';
 
 const PlayersContextController = ({ children }) => {
+  const [searchedPlayer, setSearchedPlayer] = useState('');
   const [players, setPlayers] = useState([]);
   const [playersInGame, setPlayersInGame] = useState(
     playerService.getPlayersInGame()
@@ -23,9 +24,11 @@ const PlayersContextController = ({ children }) => {
     playersInGame,
   ]);
 
-  const reg = { players, playersInGame };
+  const handleOnChange = e => setSearchedPlayer(e.currentTarget.value);
 
-  const funcValue = { setPlayers, setPlayersInGame };
+  const reg = { players, playersInGame, searchedPlayer };
+
+  const funcValue = { setPlayers, setPlayersInGame, onChange: handleOnChange };
 
   return (
     <Players.Context.Provider value={{ ...reg, ...funcValue }}>

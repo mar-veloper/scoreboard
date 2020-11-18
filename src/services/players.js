@@ -1,10 +1,10 @@
 const getPlayersInGame = () => {
-  const playersInGameLocal = localStorage.getItem('playersInGame');
+  const playersInGameLocal = sessionStorage.getItem('playersInGame');
   return playersInGameLocal ? JSON.parse(playersInGameLocal) : [];
 };
 
 const setPlayersInGameLocal = playersInGame =>
-  localStorage.setItem('playersInGame', JSON.stringify(playersInGame));
+  sessionStorage.setItem('playersInGame', JSON.stringify(playersInGame));
 
 export default {
   getPlayersInGame,
