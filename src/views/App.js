@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
+import Layout from "./layout/index";
 
-import Axios from "axios";
-
-import { API_BASE_URL } from "../config.json";
-
-function App() {
-  const [players, setPlayers] = useState([]);
-
-  const getPlayers = async () => {
-    const { data: players } = await Axios(`${API_BASE_URL}/players`);
-    return setPlayers(players);
-  };
-
-  useEffect(() => getPlayers(), []);
-
+const App = () => {
   return (
-    <div className="container">
-      <h1>Hello World</h1>
-      <>
-        {players.map((player) => (
-          <div>{player.name}</div>
-        ))}
-      </>
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Switch></Switch>
+      </Layout>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
