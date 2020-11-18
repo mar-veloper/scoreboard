@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import Header from "./Header";
-import SideBarMenu from "./SideBarMenu";
-import Main from "./Main";
+import Header from './Header';
+import SideBarMenu from './SideBarMenu';
+import Main from './Main';
 
 const Layout = ({ children }) => {
   return (
