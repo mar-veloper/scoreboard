@@ -9,9 +9,9 @@ I created this project to learn about JAMstack and how Netlify Function works wi
 Me and my friend would like to see our live scores on the game we like to play called _Among Us_.
 
 ## This project is being built using JAMstack: 
-Frontend: _React_
-Serverless: _Netlify Function_
-Database: _FaunaDB_
+Frontend | Serverless | Database
+------------ | ------------- | -------------
+React | Netlify Function | FaunaDB
 
 ### Cloning the project
 
