@@ -2,10 +2,10 @@
 
 ## Why I created this project?
 
-*For technical reason*:
-I created this project to learn about JAMstack and how Netlify Function works with FaunaDB.
+1. **For technical reason**:
+I created this project to learn about JAMstack and Serverless.
 
-*For client reason*: 
+2. **For client reason**: 
 Me and my friend would like to see our live scores on the game we like to play called _Among Us_.
 
 ## This project is being built using JAMstack: 
