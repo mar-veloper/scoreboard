@@ -3,9 +3,10 @@ import PlayersContext from 'context/players/Context';
 import Table from 'components/common/Table';
 import Button from 'components/common/Button';
 import tableColumn from 'data/tableColumn/index';
+import getRank from 'helper/getRank';
 
 const HomePage = () => {
-  const isAdmin = true;
+  const isAdmin = false;
 
   const {
     players,
@@ -14,8 +15,7 @@ const HomePage = () => {
     setPlayersInGame,
   } = useContext(PlayersContext);
 
-  const checkIfPlayerInGame = id =>
-    playersInGame.some(player => player.id === id);
+  const checkIfInGame = id => playersInGame.some(player => player.id === id);
 
   const checkIfImpostor = id =>
     playersInGame.some(player => player.id === id && player.isImpostor);
@@ -57,22 +57,8 @@ const HomePage = () => {
     ]);
   };
 
-  const getRank = rank => {
-    switch (true) {
-      case rank === 1:
-        return 'Satanas 😈';
-      case rank < 4:
-        return 'Demonyo 👿';
-      case rank < 6:
-        return 'Halimaw 👺';
-      case rank < 11:
-        return 'Kampon 🤡';
-      default:
-        return 'Angel 😇';
-    }
-  };
-
   const impostorPlayers = playersInGame.filter(({ isImpostor }) => isImpostor);
+  const crewmatePlayers = playersInGame.filter(({ isImpostor }) => !isImpostor);
 
   const playersData = players
     .sort((a, b) => b.winRate - a.winRate)
@@ -139,12 +125,12 @@ const HomePage = () => {
       key: 'addInGame',
       content: player =>
         isAdmin &&
-        (playersInGame.length <= 10 ? (
+        (playersInGame.length < 10 ? (
           <Button
             onClick={() => addInGame(player)}
-            disabled={checkIfPlayerInGame(player.id)}
+            disabled={checkIfInGame(player.id)}
           >
-            {checkIfPlayerInGame(player.id) ? 'In Game' : 'Add In Game'}
+            {checkIfInGame(player.id) ? 'In Game' : 'Add In Game'}
           </Button>
         ) : (
           'Game full'
