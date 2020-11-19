@@ -6,7 +6,7 @@
 I created this project to learn about JAMstack and Serverless.
 
 2. **For client reason**: 
-Me and my friend would like to see our live scores on the game we like to play called _Among Us_.
+Me and my friends would like to see our live scores on the game we like to play called _Among Us_.
 
 ## This project is being built using JAMstack: 
 Frontend | Serverless | Database
