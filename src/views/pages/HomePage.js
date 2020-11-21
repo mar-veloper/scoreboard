@@ -4,9 +4,10 @@ import Table from 'components/common/Table';
 import Button from 'components/common/Button';
 import tableColumn from 'data/tableColumn/index';
 import getRank from 'helper/getRank';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = () => {
-  const isAdmin = false;
+  const isAdmin = true;
 
   const {
     players,
@@ -61,7 +62,7 @@ const HomePage = () => {
   const crewmatePlayers = playersInGame.filter(({ isImpostor }) => !isImpostor);
 
   const playersData = players
-    .sort((a, b) => b.winRate - a.winRate)
+    ?.sort((a, b) => b.winRate - a.winRate)
     .map((player, index) => ({
       ...player,
       winRate: `${player.winRate} %`,
@@ -120,6 +121,14 @@ const HomePage = () => {
   ];
 
   const playersColumn = [
+    {
+      key: 'name',
+      content: ({ id, name }) => (
+        <NavLink className="text-info" to={`/players/${id}`}>
+          {name}
+        </NavLink>
+      ),
+    },
     ...tableColumn.home.players,
     {
       key: 'addInGame',

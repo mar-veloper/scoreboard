@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Players from './index';
 
-import Axios from 'axios';
-
 import { API_BASE_URL } from 'config.json';
 
 import playerService from 'services/players';
+import useSWR from 'swr';
 
 const PlayersContextController = ({ children }) => {
   const [searchedPlayer, setSearchedPlayer] = useState('');
-  const [players, setPlayers] = useState([]);
   const [playersInGame, setPlayersInGame] = useState(
     playerService.getPlayersInGame()
   );
 
-  const getPlayers = async () => {
-    const { data: players } = await Axios(`${API_BASE_URL}/players`);
-    return setPlayers(players);
-  };
+  const { data: players } = useSWR(`${API_BASE_URL}/players`);
 
-  useEffect(() => getPlayers(), []);
   useEffect(() => playerService.setPlayersInGameLocal(playersInGame), [
     playersInGame,
   ]);
@@ -28,7 +22,7 @@ const PlayersContextController = ({ children }) => {
 
   const reg = { players, playersInGame, searchedPlayer };
 
-  const funcValue = { setPlayers, setPlayersInGame, onChange: handleOnChange };
+  const funcValue = { setPlayersInGame, onChange: handleOnChange };
 
   return (
     <Players.Context.Provider value={{ ...reg, ...funcValue }}>

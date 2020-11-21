@@ -14,7 +14,7 @@ const TableBody = ({ columns, data }) => {
 
   return (
     <tbody>
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <tr key={index}>
           {columns.map(column => (
             <td key={createKey(item, column)}>{renderCell(item, column)}</td>
