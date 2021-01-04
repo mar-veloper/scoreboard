@@ -11,7 +11,7 @@ Me and my friends would like to see our live scores on the game we like to play 
 ## This project is being built using JAMstack: 
 Frontend | Serverless | Database
 ------------ | ------------- | -------------
-React | Netlify Function | FaunaDB
+[React](https://reactjs.org/) | [Netlify Function](https://www.netlify.com/products/functions/) | [FaunaDB](https://fauna.com/)
 
 ### Cloning the project
 
