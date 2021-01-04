@@ -15,7 +15,6 @@ const App = () => {
     <BrowserRouter>
       <SWRConfig
         value={{
-          dedupingInterval: 1000,
           fetcher: (...args) => Axios(...args).then(res => res.data),
         }}
       >

@@ -5,16 +5,17 @@ import Button from 'components/common/Button';
 import tableColumn from 'data/tableColumn/index';
 import getRank from 'helper/getRank';
 import { NavLink } from 'react-router-dom';
+import Axios from 'axios';
+import useSWR, { trigger } from 'swr';
 
 const HomePage = () => {
   const isAdmin = true;
 
-  const {
-    players,
-    searchedPlayer,
-    playersInGame,
-    setPlayersInGame,
-  } = useContext(PlayersContext);
+  const { searchedPlayer, playersInGame, setPlayersInGame } = useContext(
+    PlayersContext
+  );
+
+  const { data: players } = useSWR(`/api/players/`);
 
   const checkIfInGame = id => playersInGame.some(player => player.id === id);
 
@@ -60,6 +61,57 @@ const HomePage = () => {
 
   const impostorPlayers = playersInGame.filter(({ isImpostor }) => isImpostor);
   const crewmatePlayers = playersInGame.filter(({ isImpostor }) => !isImpostor);
+
+  const handleImpostorVictory = async () => {
+    impostorPlayers.forEach(async player => {
+      const { data } = await Axios.get(`/api/players/${player.id}`);
+      await Axios.put(`/api/players/${player.id}`, {
+        ...data,
+        wins: data.wins + 1,
+      });
+      trigger('/api/players/');
+    });
+
+    crewmatePlayers.forEach(async player => {
+      const { data } = await Axios.get(`/api/players/${player.id}`);
+      await Axios.put(`/api/players/${player.id}`, {
+        ...data,
+        losses: data.losses + 1,
+      });
+      trigger('/api/players/');
+    });
+  };
+
+  const handleCrewmateVictory = async () => {
+    impostorPlayers.forEach(async player => {
+      const { data } = await Axios.get(`/api/players/${player.id}`);
+      await Axios.put(`/api/players/${player.id}`, {
+        ...data,
+        losses: data.losses + 1,
+      });
+      trigger('/api/players/');
+    });
+
+    crewmatePlayers.forEach(async player => {
+      const { data } = await Axios.get(`/api/players/${player.id}`);
+      await Axios.put(`/api/players/${player.id}`, {
+        ...data,
+        wins: data.wins + 1,
+      });
+      trigger('/api/players/');
+    });
+  };
+
+  const handleResetStat = () =>
+    players.forEach(async player => {
+      const { data } = await Axios.get(`/api/players/${player.id}`);
+      await Axios.put(`/api/players/${player.id}`, {
+        ...data,
+        losses: 0,
+        wins: 0,
+      });
+      trigger('/api/players/');
+    });
 
   const playersData = players
     ?.sort((a, b) => b.winRate - a.winRate)
@@ -122,6 +174,7 @@ const HomePage = () => {
 
   const playersColumn = [
     {
+      label: 'Name',
       key: 'name',
       content: ({ id, name }) => (
         <NavLink className="text-info" to={`/players/${id}`}>
@@ -153,9 +206,31 @@ const HomePage = () => {
         <>
           <h2 className="mb-3">In Game</h2>
           <Table columns={playersInGameColumn} data={playersInGame} />
+          {impostorPlayers.length > 0 && (
+            <div className="d-flex justify-content-center mb-5">
+              <Button
+                className="btn btn-info mr-5 py-3 px-5"
+                onClick={handleCrewmateVictory}
+              >
+                Crewmate Victory
+              </Button>
+              <Button
+                className="btn btn-danger mr-5 py-3 px-5"
+                onClick={handleImpostorVictory}
+              >
+                Impostor Victory
+              </Button>
+            </div>
+          )}
         </>
       )}
-      <h2 className="mb-3">Players Rank</h2>
+      <div className="d-flex justify-content-between">
+        <h2>Players Rank</h2>
+
+        <Button className="btn btn-danger" onClick={handleResetStat}>
+          Reset Stat
+        </Button>
+      </div>
       <Table columns={playersColumn} data={filteredPlayersData} />
     </>
   );

@@ -4,14 +4,19 @@
     padding: 4px 8px;
   }
 
-  a {
+  a,
+  a:hover {
     text-decoration: none;
   }
 
   tr {
     &:hover {
-      background-color: rgb(39, 39, 39) !important;
+      background-color: #343a40 !important;
       color: white;
+      .btn {
+        background-color: white;
+        color: #343a40;
+      }
     }
   }
 }
