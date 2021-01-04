@@ -41,6 +41,9 @@ To start the project run these commmand:
 
 ```
 yarn
+cd functions
+npm i
+cd ..
 ntl dev
 ```
 
